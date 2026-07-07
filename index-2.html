@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amaan Yousuf — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F3F5F9;
+    --bg-panel: #FFFFFF;
+    --ink: #12131A;
+    --ink-soft: #52566B;
+    --cobalt: #2B4EFF;
+    --magenta: #E8177D;
+    --mint: #C8FFE4;
+    --line: #DADFEA;
+    --radius: 14px;
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection{ background: var(--cobalt); color:#fff; }
+
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position: fixed; top:0; left:0; right:0; z-index: 50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 22px 40px;
+    background: rgba(243,245,249,0.82);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .logo{
+    font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:1.1rem;
+    letter-spacing:-0.02em;
+  }
+  nav ul{
+    list-style:none; display:flex; gap:32px; margin:0; padding:0;
+  }
+  nav a{
+    color: var(--ink); text-decoration:none;
+    font-family:'JetBrains Mono', monospace; font-size:0.78rem;
+    letter-spacing: 0.06em; text-transform:uppercase;
+    position:relative; padding-bottom:3px;
+  }
+  nav a::after{
+    content:''; position:absolute; left:0; bottom:0; height:2px; width:0;
+    background: var(--cobalt); transition: width .25s ease;
+  }
+  nav a:hover::after{ width:100%; }
+  nav a:focus-visible, a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--cobalt); outline-offset: 3px;
+  }
+
+  section{ padding: 140px 40px 100px; max-width: 1180px; margin: 0 auto; }
+  @media (max-width: 720px){
+    section{ padding: 120px 22px 70px; }
+    nav{ padding: 18px 20px; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding-top: 170px; }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'JetBrains Mono', monospace; font-size:0.78rem;
+    color: var(--ink-soft); letter-spacing:0.08em; text-transform:uppercase;
+    margin-bottom: 26px;
+  }
+  .eyebrow .dot{
+    width:8px; height:8px; border-radius:50%; background: var(--magenta);
+    box-shadow: 0 0 0 4px rgba(232,23,125,0.15);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ transform: scale(1); }
+    50%{ transform: scale(1.35); }
+  }
+  h1.display{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size: clamp(2.6rem, 7vw, 5.6rem);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    margin: 0 0 22px;
+  }
+  h1.display span{ color: var(--cobalt); }
+  .hero p.lede{
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    color: var(--ink-soft);
+    max-width: 620px;
+    line-height:1.55;
+    margin: 0 0 44px;
+  }
+  .hero-actions{ display:flex; gap:16px; flex-wrap:wrap; margin-bottom: 70px; }
+  .btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.82rem; letter-spacing:0.04em; text-transform:uppercase;
+    padding: 14px 26px; border-radius: 100px;
+    text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary{ background: var(--ink); color:#fff; }
+  .btn-primary:hover{ transform: translateY(-2px); box-shadow: 0 10px 24px rgba(18,19,26,0.25); }
+  .btn-ghost{ background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  .btn-ghost:hover{ border-color: var(--ink); transform: translateY(-2px); }
+
+  /* EKG signature line */
+  .ekg-wrap{
+    width:100%; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding: 18px 0; overflow:hidden; position:relative;
+  }
+  .ekg-wrap svg{ display:block; width: 200%; height: 60px; }
+  .ekg-line{
+    fill:none; stroke: var(--cobalt); stroke-width:2.4;
+    stroke-linecap: round; stroke-linejoin: round;
+    animation: scroll-ekg 7s linear infinite;
+  }
+  @keyframes scroll-ekg{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .ekg-line, .eyebrow .dot{ animation: none; }
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid; grid-template-columns: 1.3fr 1fr; gap: 60px; align-items:start;
+  }
+  @media (max-width: 800px){ .about-grid{ grid-template-columns: 1fr; } }
+  .section-label{
+    font-family:'JetBrains Mono', monospace; font-size:0.78rem;
+    color: var(--magenta); letter-spacing:0.08em; text-transform:uppercase;
+    margin-bottom:18px; display:block;
+  }
+  h2.section-title{
+    font-family:'Space Grotesk', sans-serif; font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+    font-weight:600; letter-spacing:-0.01em; margin: 0 0 24px;
+  }
+  .about-body p{ color: var(--ink-soft); line-height:1.7; font-size:1.02rem; margin-bottom:16px; }
+
+  .about-side{ display:flex; flex-direction:column; gap:24px; }
+  .photo-card{
+    position:relative; border-radius: var(--radius); overflow:hidden;
+    border:1px solid var(--line); background: var(--bg-panel);
+  }
+  .photo-card img{ width:100%; display:block; aspect-ratio: 4/5; object-fit:cover; }
+  .photo-card .cap{
+    position:absolute; left:0; right:0; bottom:0; padding: 16px 18px;
+    background: linear-gradient(to top, rgba(18,19,26,0.75), transparent);
+    color:#fff; font-family:'JetBrains Mono', monospace; font-size:0.72rem;
+    letter-spacing:0.04em; text-transform:uppercase;
+  }
+  .vitals{
+    background: var(--bg-panel); border:1px solid var(--line); border-radius: var(--radius);
+    padding: 28px; display:flex; flex-direction:column; gap:20px;
+  }
+  .vital-row{ display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px dashed var(--line); padding-bottom:16px; }
+  .vital-row:last-child{ border-bottom:none; padding-bottom:0; }
+  .vital-label{ font-family:'JetBrains Mono', monospace; font-size:0.75rem; color: var(--ink-soft); text-transform:uppercase; letter-spacing:0.06em; }
+  .vital-value{ font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:1.05rem; text-align:right; }
+
+  /* ---------- WORK ---------- */
+  .work-header{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:44px; flex-wrap:wrap; gap:16px; }
+  .grid{
+    display:grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+  }
+  @media (max-width: 760px){ .grid{ grid-template-columns: 1fr; } }
+  .card{
+    position:relative; background: var(--bg-panel); border:1px solid var(--line);
+    border-radius: var(--radius); padding: 32px; overflow:hidden;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .card:hover{ transform: translateY(-4px); box-shadow: 0 16px 32px rgba(18,19,26,0.08); border-color: var(--cobalt); }
+  .card::before{
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background: linear-gradient(90deg, var(--cobalt), var(--magenta));
+    transform: scaleX(0); transform-origin: left; transition: transform .3s ease;
+  }
+  .card:hover::before{ transform: scaleX(1); }
+  .card-index{ font-family:'JetBrains Mono', monospace; font-size:0.75rem; color: var(--ink-soft); margin-bottom:18px; display:block; }
+  .card h3{ font-family:'Space Grotesk', sans-serif; font-size:1.35rem; margin: 0 0 12px; letter-spacing:-0.01em; }
+  .card p{ color: var(--ink-soft); line-height:1.6; font-size:0.96rem; margin: 0 0 20px; }
+  .tags{ display:flex; gap:8px; flex-wrap:wrap; }
+  .tag{
+    font-family:'JetBrains Mono', monospace; font-size:0.7rem; letter-spacing:0.04em;
+    padding: 5px 10px; border-radius:100px; background: var(--mint); color:#0A6B44;
+  }
+  .tag.alt{ background:#FFE3F0; color:#B1105E; }
+
+  /* ---------- EXPERIENCE ---------- */
+  .timeline{ display:flex; flex-direction:column; }
+  .t-row{
+    display:grid; grid-template-columns: 140px 1fr; gap: 28px;
+    padding: 26px 0; border-top:1px solid var(--line);
+  }
+  .t-row:last-child{ border-bottom:1px solid var(--line); }
+  .t-date{ font-family:'JetBrains Mono', monospace; font-size:0.8rem; color: var(--ink-soft); }
+  .t-role{ font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:1.1rem; margin-bottom:6px; }
+  .t-org{ color: var(--cobalt); font-size:0.92rem; margin-bottom:8px; }
+  .t-desc{ color: var(--ink-soft); font-size:0.95rem; line-height:1.6; }
+
+  /* ---------- CONTACT ---------- */
+  .contact{
+    background: var(--ink); color:#fff; border-radius: 24px;
+    padding: 70px 50px; text-align:center; margin: 0 40px 80px;
+  }
+  @media (max-width:720px){ .contact{ margin: 0 20px 60px; padding: 50px 26px; } }
+  .contact .section-label{ color: var(--mint); }
+  .contact h2{
+    font-family:'Space Grotesk', sans-serif; font-weight:700;
+    font-size: clamp(1.9rem, 5vw, 3.2rem); margin: 10px 0 26px; letter-spacing:-0.02em;
+  }
+  .contact a.email{
+    color:#fff; font-family:'Space Grotesk', sans-serif; font-size: clamp(1.2rem, 3vw, 1.6rem);
+    text-decoration:none; border-bottom: 2px solid var(--cobalt); padding-bottom:4px;
+  }
+  .contact .socials{ margin-top:36px; display:flex; gap:26px; justify-content:center; flex-wrap:wrap; }
+  .contact .socials a{ color: rgba(255,255,255,0.7); font-family:'JetBrains Mono', monospace; font-size:0.82rem; text-decoration:none; letter-spacing:0.04em; text-transform:uppercase; }
+  .contact .socials a:hover{ color:#fff; }
+
+  footer{ text-align:center; padding: 30px; color: var(--ink-soft); font-family:'JetBrains Mono', monospace; font-size:0.75rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">A. Yousuf</div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="eyebrow"><span class="dot"></span><span>Portfolio — updated 2026</span></div>
+  <h1 class="display">Amaan Yousuf.<br>Health equity,<br><span>built to last.</span></h1>
+  <p class="lede">Fourth-year Medical Sciences student at Western University. I move between research, patient care, and building things — basketball on the side, always.</p>
+  <div class="hero-actions">
+    <a href="#work" class="btn btn-primary">See the work →</a>
+    <a href="#contact" class="btn btn-ghost">Get in touch</a>
+  </div>
+  <div class="ekg-wrap" aria-hidden="true">
+    <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+      <path class="ekg-line" d="M0,30 L120,30 L145,30 L160,8 L175,52 L190,30 L620,30 L645,30 L660,8 L675,52 L690,30 L1200,30
+                                  L1320,30 L1345,30 L1360,8 L1375,52 L1390,30 L1820,30 L1845,30 L1860,8 L1875,52 L1890,30 L2400,30"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <span class="section-label">01 — About</span>
+      <h2 class="section-title">A quick read on who I am.</h2>
+      <div class="about-body">
+        <p>I'm a fourth-year Honours Specialization Medical Sciences student at Western University, and most of what I do circles back to three things: basketball, entrepreneurship, and health equity.</p>
+        <p>That shows up in different ways — running a youth vaping research study, supporting patients and families on the ICU/CVICU floor at Southlake, co-managing a car detailing business on the side, and organizing events for hundreds of people at a time. I like being useful in a room, and I like building things that outlast the room.</p>
+      </div>
+    </div>
+    <div class="about-side">
+      <div class="photo-card">
+        <img src="assets/amaan-presenting.jpg" alt="Amaan Yousuf speaking at a campus workshop">
+        <div class="cap">Leading a workshop on campus</div>
+      </div>
+      <div class="vitals">
+        <div class="vital-row"><span class="vital-label">Focus</span><span class="vital-value">Honours Spec. Medical Sciences</span></div>
+        <div class="vital-row"><span class="vital-label">Based in</span><span class="vital-value">London, ON</span></div>
+        <div class="vital-row"><span class="vital-label">Languages</span><span class="vital-value">English · French · Urdu</span></div>
+        <div class="vital-row"><span class="vital-label">Status</span><span class="vital-value">Open to research & collab</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WORK ============ -->
+<section id="work">
+  <div class="work-header">
+    <div>
+      <span class="section-label">02 — Selected Work</span>
+      <h2 class="section-title">Projects & research.</h2>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <span class="card-index mono">PROJECT / 01</span>
+      <h3>Youth Vaping Research Study</h3>
+      <p>Research assistant on a team of 5 studying youth vaping behaviour. Led data collection and now work on analysis using thematic coding strategies.</p>
+      <div class="tags"><span class="tag">Research</span><span class="tag alt">Qualitative Coding</span></div>
+    </div>
+    <div class="card">
+      <span class="card-index mono">PROJECT / 02</span>
+      <h3>HOSA Forensic Science — Team Canada</h3>
+      <p>Co-President of HOSA at Newmarket High School. Placed 4th nationwide in Canada for Forensic Science and represented Canada at international competition.</p>
+      <div class="tags"><span class="tag">Competition</span><span class="tag alt">Forensics</span></div>
+    </div>
+    <div class="card">
+      <span class="card-index mono">PROJECT / 03</span>
+      <h3>Relay for Life — $100K Raised</h3>
+      <p>Organized and led the Relay for Life cancer research event at Newmarket High School, mobilizing hundreds of students to raise $100,000 in one year.</p>
+      <div class="tags"><span class="tag">Fundraising</span><span class="tag alt">Leadership</span></div>
+    </div>
+    <div class="card">
+      <span class="card-index mono">PROJECT / 04</span>
+      <h3>Hustle Boys Detailing</h3>
+      <p>Co-manage a regional car detailing business — operations, customer satisfaction, and everything in between. Entrepreneurship outside the classroom.</p>
+      <div class="tags"><span class="tag alt">Entrepreneurship</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section id="experience">
+  <span class="section-label">03 — Experience</span>
+  <h2 class="section-title">Where I've spent my time.</h2>
+  <div class="timeline">
+    <div class="t-row">
+      <div class="t-date mono">2026 — Present</div>
+      <div>
+        <div class="t-role">Student Project Assistant</div>
+        <div class="t-org">Western Housing, Residence Life Management Team</div>
+        <div class="t-desc">Administrative and programming support for residence operations across campus.</div>
+      </div>
+    </div>
+    <div class="t-row">
+      <div class="t-date mono">2025 — 2026</div>
+      <div>
+        <div class="t-role">Residence Don</div>
+        <div class="t-org">Western University</div>
+        <div class="t-desc">Supported a floor of 36 students through their academic year — programming, learning experiences, and initiatives.</div>
+      </div>
+    </div>
+    <div class="t-row">
+      <div class="t-date mono">2024 — Present</div>
+      <div>
+        <div class="t-role">Research Assistant</div>
+        <div class="t-org">Youth Vaping Research Study</div>
+        <div class="t-desc">Data collection and thematic-coding analysis with a team of 5.</div>
+      </div>
+    </div>
+    <div class="t-row">
+      <div class="t-date mono">2024 — Current</div>
+      <div>
+        <div class="t-role">Internals Committee</div>
+        <div class="t-org">Medical Sciences Student Association</div>
+        <div class="t-desc">Organize annual general meetings with hundreds of attendees, working closely with VPs and presidents.</div>
+      </div>
+    </div>
+    <div class="t-row">
+      <div class="t-date mono">2023 — 2024</div>
+      <div>
+        <div class="t-role">VP Special Events</div>
+        <div class="t-org">Residence Council, Western University</div>
+        <div class="t-desc">Managed a $50,000+ budget, planning events for a 450-student residence building.</div>
+      </div>
+    </div>
+    <div class="t-row">
+      <div class="t-date mono">2022 — 2024</div>
+      <div>
+        <div class="t-role">Volunteer</div>
+        <div class="t-org">Southlake Regional Health Centre — ICU / CVICU / Radiation</div>
+        <div class="t-desc">Connected with patients and supported staff by guiding families through the units.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" style="padding-left:0; padding-right:0;">
+  <div class="contact">
+    <span class="section-label">04 — Contact</span>
+    <h2>Let's talk research,<br>medicine, or the next idea.</h2>
+    <a class="email" href="mailto:Ayousu5@uwo.ca">Ayousu5@uwo.ca</a>
+    <div class="socials">
+      <a href="#">LinkedIn</a>
+      <a href="assets/Amaan_Yousuf_-_CV.pdf">CV / Resume</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Amaan Yousuf — built with intent, not a template.</footer>
+
+</body>
+</html>
